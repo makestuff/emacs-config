@@ -82,6 +82,7 @@
 )
 (add-hook 'asm-mode-hook
   '(lambda()
+     (setq indent-tabs-mode t)
      (setq default-tab-width 8)
   )
 )
@@ -98,7 +99,6 @@
      (define-key verilog-mode-map (kbd ";") 'self-insert-command)
      (define-key verilog-mode-map (kbd ":") 'self-insert-command)
      (define-key verilog-mode-map (kbd "RET") "\C-j")
-     (setq indent-tabs-mode nil)
      (setq electric-indent-local-mode -1)
   )
 )
