@@ -6635,6 +6635,22 @@ Only look at a few lines to determine indent level."
   "Indent for special part of code."
   (verilog-do-indent (verilog-calculate-indent)))
 
+(defun verilog-top-level()
+  (save-excursion
+    (verilog-backward-syntactic-ws)
+    (back-to-indentation)
+    (looking-at "\\(endmodule\\|endclass\\|endpackage\\)")
+  )
+)
+
+(defun verilog-top-level-indent()
+  (save-excursion
+    (verilog-backward-syntactic-ws)
+    (back-to-indentation)
+    (current-column)
+  )
+)
+
 (defun verilog-do-indent (indent-str)
   (let ((type (car indent-str))
         (ind (car (cdr indent-str))))
@@ -6704,13 +6720,18 @@ Only look at a few lines to determine indent level."
       (eq type 'cparenexp)
       (let* ( here
               (val (save-excursion
-                     (verilog-backward-up-list 1)
-                     (forward-char 1)
-                     (if verilog-indent-lists
-                         (skip-chars-forward " \t")
-                       (verilog-forward-syntactic-ws))
-                     (setq here (point))
-                     (current-column)))
+                     (back-to-indentation)
+                     (let ((extra (if (looking-at "\\()\\|}\\)") 0 2)))  ;; unless the line starts with a close-bracket, indent 2 chars
+                       (verilog-backward-up-list 1)
+                       (backward-char 1)
+                       (if (looking-at ")")  ;; check for ")(" like in a parameterized module
+                         (verilog-backward-up-list 1))
+                       (verilog-beg-of-statement)  ;; find nearest statement
+                       (back-to-indentation)
+                       (if (looking-at "\\(module\\|if\\|else if\\|end else if\\|while\\|for\\)")  ;; indent more for these
+                         (setq extra (+ extra 2)))
+                       (setq here (point))
+                       (+ (current-column) extra))))
 
               (decl (save-excursion
                       (goto-char here)
@@ -6742,8 +6763,12 @@ Only look at a few lines to determine indent level."
             (indent-line-to val))))))
 
      (;-- defun
+      (and (eq type 'defun) (verilog-top-level))
+      (indent-line-to (verilog-top-level-indent)))
+
+     (;-- defun
       (and (eq type 'defun)
-           (looking-at verilog-zero-indent-re))
+           (looking-at "endmodule"))
       (indent-line-to 0))
 
      (;-- declaration
