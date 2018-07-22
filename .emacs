@@ -1,3 +1,4 @@
+;; Basic settings
 (set-language-environment "UTF-8")
 (setq-default indent-tabs-mode nil)
 (setq default-truncate-lines 1)
