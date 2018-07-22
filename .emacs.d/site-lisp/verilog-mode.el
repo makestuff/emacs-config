@@ -6728,7 +6728,7 @@ Only look at a few lines to determine indent level."
                          (verilog-backward-up-list 1))
                        (verilog-beg-of-statement)  ;; find nearest statement
                        (back-to-indentation)
-                       (if (looking-at "\\(module\\|if\\|else if\\|end else if\\|while\\|for\\)")  ;; indent more for these
+                       (if (looking-at "\\(module\\|if\\|else if\\|end else if\\|while\\|for\\|task\\|function\\)")  ;; indent more for these
                          (setq extra (+ extra 2)))
                        (setq here (point))
                        (+ (current-column) extra))))
