@@ -88,7 +88,7 @@
   )
 )
 (add-hook 'html-mode-hook
-  '(lambda ()
+  '(lambda()
      (setq default-tab-width 2)
   )
 )
