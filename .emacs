@@ -104,9 +104,6 @@
   )
 )
 (custom-set-variables
-  '(custom-safe-themes
-     (quote
-       ("9eacaabd2644c9531f53c1f32c20dfb6bd577482d38c900c9dd5379f27cc2792" "5c9bd73de767fa0d0ea71ee2f3ca6fe77261d931c3d4f7cca0734e2a3282f439" default)))
   '(verilog-auto-indent-on-newlines nil)
   '(verilog-auto-lineup 'ignore)
   '(verilog-case-indent 2)

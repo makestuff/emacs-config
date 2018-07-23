@@ -50,7 +50,7 @@
   '(highlight ((t (:background "#343D46" :weight normal))))
   '(linum ((t (:foreground "#AB7967" :weight normal))))
   '(mode-line ((t (:background "#3C3F41" :foreground "#9A9A9A" :box "#6699CC" :weight normal))))
-  '(mode-line-inactive ((t (:background "#2C2C2C" :foreground "#555555" :box "#6699CC" :weight normal))))
+  '(mode-line-inactive ((t (:background "#2C2C2C" :foreground "#484848" :box "#6699CC" :weight normal))))
   '(mode-line-highlight ((t (:box nil))))
 
   '(show-paren-match ((t (:background "#3B514D" :foreground "#FFEF28"))))
