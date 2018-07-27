@@ -116,6 +116,8 @@
   '(verilog-indent-level-module 2)
   '(verilog-indent-lists t)
 )
+(require 'verilog-mode)
+(defun verilog-set-compile-command())
 
 ;; Trigger appropriate modes for MakeStuff HDL and CUDA files
 (setq auto-mode-alist

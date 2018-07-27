@@ -39,7 +39,7 @@
   '(region ((t (:background "#343D46"))))
   '(font-lock-builtin-face ((t (:foreground "#FAC863" :weight normal))))
   '(font-lock-comment-face ((t (:foreground "#808080" :weight normal))))
-  '(font-lock-function-name-face ((t (:foreground "#D8DEE9" :weight normal))))
+  '(font-lock-function-name-face ((t (:foreground "#D8DE00" :weight normal))))
   '(font-lock-keyword-face ((t (:foreground "#CC7832" :weight bold))))
   '(font-lock-string-face ((t (:foreground "#6A8759" :weight normal))))
   '(font-lock-type-face ((t (:foreground "#CC7832" :weight normal))))
@@ -52,7 +52,7 @@
   '(mode-line ((t (:background "#3C3F41" :foreground "#9A9A9A" :box "#6699CC" :weight normal))))
   '(mode-line-inactive ((t (:background "#2C2C2C" :foreground "#484848" :box "#6699CC" :weight normal))))
   '(mode-line-highlight ((t (:box nil))))
-
+  '(compilation-error ((t (:background "red" :foreground "#FFFFFF" :weight bold))))
   '(show-paren-match ((t (:background "#3B514D" :foreground "#FFEF28"))))
   '(show-paren-mismatch ((t (:background "#FAC863" :foreground "#FF0000"))))
 )
