@@ -14,6 +14,13 @@
 (auto-save-mode 0)
 (menu-bar-mode 0)
 
+;; Load local customizations & themes
+(add-to-list 'load-path "~/.emacs.d/site-lisp/")
+
+;; Scroll line-by-line
+(require 'smooth-scrolling)
+(setq smooth-scroll-margin 2)
+
 ;; Minor mode for text to do adaptive indentation (e.g for Twiki, Markdown, LaTeX)
 (defun srb-adaptive-indent (beg end)
   "Indent the region between BEG and END with adaptive filling."
@@ -66,11 +73,12 @@
 (setq compilation-scroll-output 1)
 
 ;; Key bindings
-(global-set-key [f5] "\C-xo")
-(global-set-key [f6] (lambda() (interactive) (split-window-horizontally)))
-(global-set-key [f7] "\C-x{")
-(global-set-key [f8] 'hexl-mode)
+(global-set-key [f5] 'other-window)
+(global-set-key [f6] 'split-window-right)
+(global-set-key [f7] 'enlarge-window-horizontally)
+(global-set-key [f8] 'eval-last-sexp)
 (global-set-key [f9] 'buffer-menu)
+(global-set-key [f10] 'hexl-mode)
 (global-set-key [f12] 'compile)
 
 ;; Mode customizations
@@ -95,6 +103,22 @@
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'srb-adaptive-wrap-mode)
 
+;; Associate appropriate major modes with MakeStuff HDL and CUDA files
+(setq auto-mode-alist
+  (append
+    '(
+       ("\\.mhdl\\'" . c-mode)
+       ("\\.cu\\'" . c++-mode)
+    )
+    auto-mode-alist
+  )
+)
+
+;; Verilog mode
+(require 'verilog-mode)
+(defun verilog-set-compile-command()
+  "Do not customize behaviour on a per-buffer basis"
+)
 (add-hook 'verilog-mode-hook
   '(lambda()
      (define-key verilog-mode-map (kbd ";") 'self-insert-command)
@@ -116,26 +140,8 @@
   '(verilog-indent-level-module 2)
   '(verilog-indent-lists t)
 )
-(require 'verilog-mode)
-(defun verilog-set-compile-command())
 
-;; Trigger appropriate modes for MakeStuff HDL and CUDA files
-(setq auto-mode-alist
-  (append
-    '(
-       ("\\.mhdl\\'" . c-mode)
-       ("\\.cu\\'" . c++-mode)
-    )
-    auto-mode-alist
-  )
-)
-
-;; Load customizations
-(add-to-list 'load-path "~/.emacs.d/site-lisp/")
-(require 'smooth-scrolling)
-(setq smooth-scroll-margin 2)
-
-;; Lisp
+;; Lisp mode
 (defadvice lisp-indent-line(after my-lisp-indentation)
   "Makes lone close-parens indent like in C"
   (interactive)
@@ -162,6 +168,11 @@
 (setq lisp-indent-offset 2)
 (defalias 'sh-newline-and-indent 'newline-and-indent)
 (defalias 'backward-delete-char-untabify 'backward-delete-char)
+
+;; MELPA
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
 
 ;; Theme
 (load-theme 'oceanic t)
