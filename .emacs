@@ -124,6 +124,7 @@
      (define-key verilog-mode-map (kbd ";") 'self-insert-command)
      (define-key verilog-mode-map (kbd ":") 'self-insert-command)
      (define-key verilog-mode-map (kbd "RET") "\C-j")
+     (add-to-list 'write-file-functions 'delete-trailing-whitespace)
      (setq electric-indent-local-mode -1)
   )
 )
