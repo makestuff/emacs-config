@@ -76,7 +76,7 @@
 (global-set-key [f5] 'other-window)
 (global-set-key [f6] 'split-window-right)
 (global-set-key [f7] 'enlarge-window-horizontally)
-(global-set-key [f8] 'eval-last-sexp)
+(global-set-key [f8] 'delete-window)
 (global-set-key [f9] 'buffer-menu)
 (global-set-key [f10] 'hexl-mode)
 (global-set-key [f12] 'compile)
@@ -168,6 +168,16 @@
 (setq lisp-indent-offset 2)
 (defalias 'sh-newline-and-indent 'newline-and-indent)
 (defalias 'backward-delete-char-untabify 'backward-delete-char)
+(add-hook 'emacs-lisp-mode-hook
+  '(lambda()
+     (define-key emacs-lisp-mode-map (kbd "C-j") 'eval-last-sexp)
+  )
+)
+(add-hook 'ielm-mode-hook
+  '(lambda()
+    (define-key ielm-map (kbd "C-j") 'eval-last-sexp)
+  )
+)
 
 ;; MELPA
 (require 'package)
