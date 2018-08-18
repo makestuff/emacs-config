@@ -67,7 +67,7 @@
 )
 
 ;; Compile commands
-(setq compile-command (concat "make -C " (getenv "PWD")))
+(setq compile-command (concat "make -C " (getenv "PWD") "/cmake-build-debug"))
 (setq compilation-read-command nil)
 (setq compilation-ask-about-save nil)
 (setq compilation-scroll-output 1)
@@ -78,7 +78,7 @@
 (global-set-key [f7] 'enlarge-window-horizontally)
 (global-set-key [f8] 'delete-window)
 (global-set-key [f9] 'buffer-menu)
-(global-set-key [f10] 'gtest-run)
+(global-set-key [f10] '(lambda() (interactive) (gtest-run gtest-filter)))
 (global-set-key [f12] 'compile)
 
 ;; Mode customizations
@@ -196,6 +196,12 @@
 ;(require 'mymod)
 
 ;; RTags, CompAny, GTest, Modern C++
+(let ((site-lisp (concat (getenv "WORKSPACE") "/local/share/emacs/site-lisp")))
+  (when (file-directory-p site-lisp)
+    (add-to-list 'load-path (concat site-lisp "/company"))
+    (add-to-list 'load-path (concat site-lisp "/rtags"))
+  )
+)
 (require 'company)
 (require 'rtags)
 (setq rtags-autostart-diagnostics t)
@@ -210,3 +216,6 @@
 (modern-c++-font-lock-global-mode t)
 
 (setq gtest-target (concat (getenv "PWD") "/cmake-build-debug/unit-tests/unit-tests"))
+(defcustom gtest-filter "Mul*"
+  "Filter to select which GTests to run"
+)
