@@ -6,7 +6,7 @@
 (setq backup-inhibited 1)
 (setq inhibit-startup-message 1)
 (setq split-height-threshold nil)
-(setq gdb-command-name "m68k-elf-gdb")
+(setq gdb-command-name "/usr/bin/gdb")
 (setq default-tab-width 2)
 
 (line-number-mode 1)
@@ -78,7 +78,7 @@
 (global-set-key [f7] 'enlarge-window-horizontally)
 (global-set-key [f8] 'delete-window)
 (global-set-key [f9] 'buffer-menu)
-(global-set-key [f10] 'hexl-mode)
+(global-set-key [f10] '(lambda() (interactive)(gtest-run)))
 (global-set-key [f12] 'compile)
 
 ;; Mode customizations
@@ -87,6 +87,9 @@
      (c-set-style "bsd" )
      (setq c-basic-offset 2)
      (c-set-offset 'arglist-close '(c-lineup-close-paren))
+     (hide-ifdef-mode)
+     (setq hide-ifdef-shadow t)
+     (hide-ifdefs)
   )
 )
 (add-hook 'asm-mode-hook
@@ -187,3 +190,21 @@
 
 ;; Theme
 (load-theme 'oceanic t)
+
+;; Emacs native module
+;(add-to-list 'load-path "/home/chris/emacs-module")
+;(require 'mymod)
+
+;; RTags, CompAny, GTest, Modern C++
+(require 'company)
+(require 'rtags)
+(setq rtags-autostart-diagnostics t)
+(rtags-diagnostics)
+(setq rtags-completions-enabled t)
+(global-company-mode)
+(push 'company-rtags company-backends)
+(rtags-enable-standard-keybindings c-mode-base-map "M-z")
+(define-key c-mode-base-map (kbd "M-z c") 'company-complete)
+(require 'gtest-mode)
+(require 'modern-cpp-font-lock)
+(modern-c++-font-lock-global-mode t)

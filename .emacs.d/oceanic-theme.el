@@ -35,7 +35,8 @@
   'oceanic
   '(default ((t (:foreground "#D8DEE9" :background "#2B2B2B"))))
   '(cursor ((t (:background "#6699CC"))))
-  '(fringe ((t (:background "#1a1a1a"))))
+  '(fringe ((t (:background "#2B2B2B"))))
+  '(rtags-skippedline ((t (:background "#2B2B2B"))))
   '(region ((t (:background "#343D46"))))
   '(font-lock-builtin-face ((t (:foreground "#FAC863" :weight normal))))
   '(font-lock-comment-face ((t (:foreground "#808080" :weight normal))))
@@ -47,6 +48,7 @@
   '(font-lock-variable-name-face ((t (:foreground "#A9B7C6" :weight normal))))
   '(minibuffer-prompt ((t (:foreground "#6699CC" :weight normal))))
   '(font-lock-warning-face ((t (:foreground "#EC5F67"  :weight normal))))
+  '(font-lock-warning-face ((t (:foreground "#EC5F67"  :weight normal))))
   '(highlight ((t (:background "#343D46" :weight normal))))
   '(linum ((t (:foreground "#AB7967" :weight normal))))
   '(mode-line ((t (:background "#3C3F41" :foreground "#9A9A9A" :box "#6699CC" :weight normal))))
@@ -55,6 +57,7 @@
   '(compilation-error ((t (:background "red" :foreground "#FFFFFF" :weight bold))))
   '(show-paren-match ((t (:background "#3B514D" :foreground "#FFEF28"))))
   '(show-paren-mismatch ((t (:background "#FAC863" :foreground "#FF0000"))))
+  '(shadow ((t (:foreground "#404040" :background "#2B2B2B"))))
 )
 
 (provide-theme 'oceanic)
