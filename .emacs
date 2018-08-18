@@ -78,7 +78,7 @@
 (global-set-key [f7] 'enlarge-window-horizontally)
 (global-set-key [f8] 'delete-window)
 (global-set-key [f9] 'buffer-menu)
-(global-set-key [f10] '(lambda() (interactive)(gtest-run)))
+(global-set-key [f10] 'gtest-run)
 (global-set-key [f12] 'compile)
 
 ;; Mode customizations
@@ -208,3 +208,5 @@
 (require 'gtest-mode)
 (require 'modern-cpp-font-lock)
 (modern-c++-font-lock-global-mode t)
+
+(setq gtest-target (concat (getenv "PWD") "/cmake-build-debug/unit-tests/unit-tests"))
