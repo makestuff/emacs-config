@@ -36,7 +36,7 @@
   '(default ((t (:foreground "#D8DEE9" :background "#2B2B2B"))))
   '(cursor ((t (:background "#6699CC"))))
   '(fringe ((t (:background "#2B2B2B"))))
-  '(rtags-skippedline ((t (:background "#2B2B2B"))))
+  '(rtags-skippedline ((t (:background "#2B2B2B" :foreground "#404040"))))
   '(region ((t (:background "#343D46"))))
   '(font-lock-builtin-face ((t (:foreground "#FAC863" :weight normal))))
   '(font-lock-comment-face ((t (:foreground "#808080" :weight normal))))

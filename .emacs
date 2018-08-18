@@ -87,9 +87,6 @@
      (c-set-style "bsd" )
      (setq c-basic-offset 2)
      (c-set-offset 'arglist-close '(c-lineup-close-paren))
-     (hide-ifdef-mode)
-     (setq hide-ifdef-shadow t)
-     (hide-ifdefs)
   )
 )
 (add-hook 'asm-mode-hook
@@ -105,6 +102,12 @@
 )
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'srb-adaptive-wrap-mode)
+
+(add-hook 'compilation-mode-hook
+  '(lambda()
+     (setq truncate-lines nil)
+  )
+)
 
 ;; Associate appropriate major modes with MakeStuff HDL and CUDA files
 (setq auto-mode-alist
@@ -216,6 +219,6 @@
 (modern-c++-font-lock-global-mode t)
 
 (setq gtest-target (concat (getenv "PWD") "/cmake-build-debug/unit-tests/unit-tests"))
-(defcustom gtest-filter "Mul*"
+(defcustom gtest-filter "**"
   "Filter to select which GTests to run"
 )
