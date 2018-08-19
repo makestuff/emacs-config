@@ -1,8 +1,7 @@
 ;; Basic settings
 (set-language-environment "UTF-8")
 (setq-default indent-tabs-mode nil)
-(setq default-truncate-lines 1)
-(setq truncate-partial-width-windows default-truncate-lines)
+(setq-default truncate-lines t)
 (setq backup-inhibited 1)
 (setq inhibit-startup-message 1)
 (setq split-height-threshold nil)
@@ -75,8 +74,10 @@
 ;; Key bindings
 (global-set-key [f5] 'other-window)
 (global-set-key [f6] 'split-window-right)
-(global-set-key [f7] 'enlarge-window-horizontally)
-(global-set-key [f8] 'delete-window)
+(global-set-key [C-f7] 'shrink-window)
+(global-set-key [C-f8] 'enlarge-window)
+(global-set-key [f7] 'shrink-window-horizontally)
+(global-set-key [f8] 'enlarge-window-horizontally)
 (global-set-key [f9] 'buffer-menu)
 (global-set-key [f10] '(lambda() (interactive) (gtest-run gtest-filter)))
 (global-set-key [f12] 'compile)
@@ -214,6 +215,9 @@
 (push 'company-rtags company-backends)
 (rtags-enable-standard-keybindings c-mode-base-map "M-z")
 (define-key c-mode-base-map (kbd "M-z c") 'company-complete)
+(define-key c-mode-base-map (kbd "<f2>") 'rtags-find-symbol-at-point)
+(define-key c-mode-base-map (kbd "<f3>") 'rtags-location-stack-back)
+(define-key c-mode-base-map (kbd "<f4>") 'rtags-location-stack-forward)
 (require 'gtest-mode)
 (require 'modern-cpp-font-lock)
 (modern-c++-font-lock-global-mode t)
@@ -222,3 +226,6 @@
 (defcustom gtest-filter "**"
   "Filter to select which GTests to run"
 )
+(require 'sr-speedbar)
+(sr-speedbar-open)
+(ad-deactivate 'pop-to-buffer) 
