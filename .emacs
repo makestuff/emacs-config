@@ -72,6 +72,8 @@
 (setq compilation-scroll-output 1)
 
 ;; Key bindings
+(global-set-key [C-f5] 'rtags-previous-diag)
+(global-set-key [C-f6] 'rtags-next-diag)
 (global-set-key [f5] 'other-window)
 (global-set-key [f6] 'split-window-right)
 (global-set-key [C-f7] 'shrink-window)
@@ -229,3 +231,4 @@
 (require 'sr-speedbar)
 (sr-speedbar-open)
 (ad-deactivate 'pop-to-buffer) 
+(set-face-foreground 'mode-line "#FFFFFF")
