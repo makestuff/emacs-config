@@ -2400,6 +2400,25 @@ find the errors."
        "`uvm_warning"
        "`uvm_warning_context") nil )))
 
+(defconst verilog-svtestsuite-begin-re
+  (eval-when-compile
+    (verilog-regexp-opt
+     '("`SVUNIT_TESTS_BEGIN") nil)))
+
+(defconst verilog-svtestsuite-end-re
+  (eval-when-compile
+    (verilog-regexp-opt
+     '("`SVUNIT_TESTS_END") nil)))
+
+(defconst verilog-svtest-begin-re
+  (eval-when-compile
+    (verilog-regexp-opt
+     '("`SVTEST") nil)))
+
+(defconst verilog-svtest-end-re
+  (eval-when-compile
+    (verilog-regexp-opt
+     '("`SVTEST_END") nil)))
 
 ;;
 ;; Regular expressions used to calculate indent, etc.
@@ -2464,6 +2483,9 @@ find the errors."
    "\\(\\<join\\(_any\\|_none\\)?\\>\\)\\|" ; 10
    "\\(\\<endclass\\>\\)\\|"            ; 11
    "\\(\\<endgroup\\>\\)\\|"            ; 12
+   ;; SVUnit
+   "\\(\\<`SVTEST_END\\>\\)\\|"
+   "\\(\\<`SVUNIT_TESTS_END\\>\\)\\|"
    ;; VMM
    "\\(\\<`vmm_data_member_end\\>\\)\\|"
    "\\(\\<`vmm_env_member_end\\>\\)\\|"
@@ -2559,6 +2581,9 @@ find the errors."
        "endprogram"
        "endsequence"
        "endclocking"
+       ;; SVUnit
+       "`SVTEST_END"
+       "`SVUNIT_TESTS_END"
        ;; OVM
        "`ovm_component_utils_end"
        "`ovm_field_utils_end"
@@ -2623,6 +2648,9 @@ find the errors."
        "specify"
        "table"
        "task"
+       ;; SVUnit
+       "`SVUNIT_TESTS_BEGIN"
+       "`SVTEST"
        ;; OVM
        "`ovm_component_utils_begin"
        "`ovm_component_param_utils_begin"
@@ -2667,6 +2695,8 @@ find the errors."
            "\\|\\(\\<clocking\\>\\)"              ;17
            "\\|\\(\\<`[ou]vm_[a-z_]+_begin\\>\\)" ;18
            "\\|\\(\\<`vmm_[a-z_]+_member_begin\\>\\)"
+           "\\|\\(\\<`SVUNIT_TESTS_BEGIN\\>\\)"
+           "\\|\\(\\<`SVTEST\\>\\)"
            ;;
            ))
 
@@ -2833,6 +2863,12 @@ find the errors."
        "`switch" "`endswitch"
        "`timescale"
        "`time_scale"
+       ;; SVUnit Begin tokens
+       "`SVUNIT_TESTS_BEGIN"
+       "`SVTEST"
+       ;; SVUnit End tokens
+       "`SVTEST_END"
+       "`SVUNIT_TESTS_END"
        ;; OVM Begin tokens
        "`ovm_component_utils_begin"
        "`ovm_component_param_utils_begin"
@@ -5978,6 +6014,12 @@ Jump from end to matching begin, from endcase to matching case, and so on."
      ((looking-at "\\<endproperty\\>")
       ;; 11: Search back for matching property
       (setq reg "\\(\\<property\\>\\)\\|\\(\\<endproperty\\>\\)" ))
+     ((looking-at verilog-svtest-end-re)
+      ;; 12: Search back for matching sequence
+      (setq reg (concat "\\(" verilog-svtest-begin-re "\\|" verilog-svtest-end-re "\\)")))
+     ((looking-at verilog-svtestsuite-end-re)
+      ;; 12: Search back for matching sequence
+      (setq reg (concat "\\(" verilog-svtestsuite-begin-re "\\|" verilog-svtestsuite-end-re "\\)")))
      ((looking-at verilog-uvm-end-re)
       ;; 12: Search back for matching sequence
       (setq reg (concat "\\(" verilog-uvm-begin-re "\\|" verilog-uvm-end-re "\\)")))
@@ -6108,6 +6150,10 @@ Set point to where line starts."
          ;;XX
          ((looking-at "\\<\\(always\\(_latch\\|_ff\\|_comb\\)?\\|case\\(\\|[xz]\\)\\|for\\(\\|each\\|ever\\)\\|i\\(f\\|nitial\\)\\|repeat\\|while\\)\\>")
           (not (looking-at "\\<randcase\\>\\|\\<case[xz]?\\>[^:]")))
+         ((looking-at verilog-svtestsuite-begin-re)
+          nil)
+         ((looking-at verilog-svtest-begin-re)
+          nil)
          ((looking-at verilog-uvm-statement-re)
           nil)
          ((looking-at verilog-uvm-begin-re)
