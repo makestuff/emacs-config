@@ -229,6 +229,9 @@
   "Filter to select which GTests to run"
 )
 (require 'sr-speedbar)
+(setq sr-speedbar-width 25)
 (sr-speedbar-open)
+(with-current-buffer sr-speedbar-buffer-name
+  (setq window-size-fixed 'width))
 (ad-deactivate 'pop-to-buffer) 
 (set-face-foreground 'mode-line "#FFFFFF")

@@ -49,7 +49,6 @@
   '(font-lock-constant-face ((t (:foreground "#9876AA" :weight normal))))
   '(font-lock-variable-name-face ((t (:foreground "#A9B7C6" :weight normal))))
   '(minibuffer-prompt ((t (:foreground "#6699CC" :weight normal))))
-  '(font-lock-warning-face ((t (:foreground "#EC5F67"  :weight normal))))
   '(highlight ((t (:background "#343D46" :weight normal))))
   '(linum ((t (:foreground "#AB7967" :weight normal))))
   '(mode-line ((t (:background "#404040" :foreground "#000000" :weight bold))))
