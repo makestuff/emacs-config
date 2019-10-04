@@ -70,6 +70,7 @@
 (setq compilation-read-command nil)
 (setq compilation-ask-about-save nil)
 (setq compilation-scroll-output 1)
+(setq compilation-auto-jump-to-first-error 1)
 
 ;; Key bindings
 (global-set-key [C-f5] 'rtags-previous-diag)
@@ -118,10 +119,13 @@
     '(
        ("\\.mhdl\\'" . c-mode)
        ("\\.cu\\'" . c++-mode)
+       ("\\.do\\'" . tcl-mode)
     )
     auto-mode-alist
   )
 )
+(setq tcl-indent-level 2)
+
 
 ;; Verilog mode
 (require 'verilog-mode)
@@ -228,10 +232,15 @@
 (defcustom gtest-filter "**"
   "Filter to select which GTests to run"
 )
-(require 'sr-speedbar)
-(setq sr-speedbar-width 25)
-(sr-speedbar-open)
-(with-current-buffer sr-speedbar-buffer-name
-  (setq window-size-fixed 'width))
-(ad-deactivate 'pop-to-buffer) 
+;(require 'sr-speedbar)
+;(setq sr-speedbar-width 25)
+;(sr-speedbar-open)
+;(with-current-buffer sr-speedbar-buffer-name
+;  (setq window-size-fixed 'width))
+;(ad-deactivate 'pop-to-buffer) 
 (set-face-foreground 'mode-line "#FFFFFF")
+(defun indent-buffer()
+  "Indent the current buffer"
+  (interactive)
+  (indent-region (point-min) (point-max))
+)
